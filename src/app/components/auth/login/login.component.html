@@ -1,0 +1,44 @@
+<main class="flex h-screen w-full justify-center p-5" style="border: 4px  yellow;">
+  <section class="flex flex-col w-full h-3/5 self-center shadow-2xl justify-center gap-3 rounded-md p-4 sm:w-3/4 lg:w-1/2 xl:w-1/4 xl:h-" style="border: 2px  #DA0037; background-color: #fff;">
+    <div class="flex flex-col h-fit gap-2 justify-center items-center" style="border: 4px  yellow;">
+      <img class="h-24" src="../../../assets/images/logo.png" style="border: 4px  orangered;">
+      <h2 class="text-center text-lg text-gray-500">¡Bienvenido de vuelta!</h2>
+    </div>
+    <form class="flex flex-col shrink-0 gap-3" [formGroup]="loginForm" (ngSubmit)="login()" style="border: 2px  green;">
+      <div class="flex flex-col h-full gap-2 p-2 justify-evenly">
+        <div class="flex flex-col">
+          <p-floatLabel variant="in" style="border: 2px  yellow;">
+            <input pInputText pSize="small" id="email" formControlName="email" />
+            <label for="email">Correo Eléctronico</label>
+          </p-floatLabel>
+        </div>
+        <div class="flex flex-col" style="border: 2px  red;">
+          <p-floatLabel variant="in" class="w-full" style="border: 2px  yellow;">
+            <p-password formControlName="password" size="small" [toggleMask]="true" [feedback]="false" [style]="{'width':'100%'}"/>
+            <label for="password">Contraseña</label>
+          </p-floatLabel>
+        </div>
+        <div class="flex gap-1 justify-between">
+          <div class="flex gap-1 items-center">
+            <input id="keepSession" class="w-4 h-4" style="background-color: white!important; color: white!important;" type="checkbox" id="rememberMe" formControlName="rememberMe" />
+            <label for="keepSession" class="text-gray-500 text-xs">Mantener sesión</label>
+          </div>
+          <a class="text-xs" style="color: rgb(91, 91, 255);" (click)="forgotPassword()">¿Olvidaste tu contraseña?</a>
+        </div>
+      </div>
+      <div class="flex flex-col h-1/4 items-center gap-1" style="border: 2px  red;">
+        <button
+          class="w-1/2 h-9 text-white"
+          type="submit"
+          style="border-radius: 4px; background-color: rgb(91, 91, 255);"
+        >
+          Iniciar Sesión
+        </button>
+        <button class="w-1/3 h-9 signup-button text-white text-xs" style="border-radius: 4px;" (click)="signup()">
+          Registrarse
+        </button>
+      </div>
+    </form>
+  </section>
+</main>
+<p-toast position="top-center" [breakpoints]="{'390px': { width: '75%'}}"/>

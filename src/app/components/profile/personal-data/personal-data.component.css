@@ -1,0 +1,39 @@
+.signup-button:hover {
+  color: red;
+}
+
+:host ::ng-deep input:focus, input:focus-visible {
+  outline: none!important;
+}
+
+:host ::ng-deep .p-inputtext {
+  /* border: 2px solid yellow; */
+  background-color: #171717;
+  color: rgb(176, 176, 176);
+  /* height: 2.5rem; */
+  border: none;
+  width: 100%;
+}
+:host ::ng-deep .p-inputtext::placeholder {
+  color: rgb(176, 176, 176);
+}
+:host ::ng-deep .p-inputtext:focus, .p-inputtext:focus-visible {
+  outline: none!important;
+  border: 0!important;
+  box-shadow: none!important;
+}
+
+:host ::ng-deep .p-inputtext:disabled {
+  background-color: #2B2E33;
+  color: white;
+  width: 100%;
+}
+
+:host ::ng-deep .p-password-panel {
+  /* border: 2px solid yellow; */
+  background-color: #171717;
+  color: rgb(176, 176, 176);
+  /* height: 2.5rem; */
+  border: none;
+  width: 100%;
+}

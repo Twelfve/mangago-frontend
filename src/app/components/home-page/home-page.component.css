@@ -1,0 +1,12 @@
+.josei {
+    background-color: rgb(138, 55, 255, 0.5);
+}
+.shounen {
+    background-color: rgba(255, 145, 55, 0.5);
+}
+.seinen {
+    background-color: rgba(255, 55, 55, 0.5);
+}
+.shoujo {
+    background-color: rgba(255, 55, 202, 0.5);
+}

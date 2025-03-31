@@ -1,0 +1,81 @@
+<div class="flex flex-col w-full h-full" style="border: 2px  white;">
+  <app-header></app-header>
+  <div class="flex flex-col m-4 p-4 gap-4 rounded-md h-1/3 justify-center items-center self-center sm:w-96" *ngIf="((isEmailVerified$ | async) == false)" style="border: 2px  red; background-color: rgb(39, 39, 42);">
+    <div class="flex flex-col gap-2 justify-center items-center self-center">
+      <span class="pi pi-envelope" style="font-size: 4rem;"></span>
+      <span class="text-center">Necesitas verificar tu correo electronico para empezar a vender!</span>
+    </div>
+    <div class="flex flex-col justify-center items-center self-center">
+      <p-button severity="contrast" label="Verificar correo electronico" (click)="navigateToVerifyEmail()"/>
+    </div>
+  </div>
+  <div class="flex flex-col w-full overflow-auto gap-4 rounded-md p-3 items-center self-center lg:w-[60rem]" *ngIf="((isEmailVerified$ | async) == true)" style="border: 2px solid red;">
+    <div class="flex flex-col gap-2 items-center justify-center" *ngIf="!isCategorySelected">
+      <span class="text-2xl text-center">Categoría</span>
+      <span class="text-xs text-center" style="color: rgb(176, 176, 176);">Empecemos buscando la categoria de tu producto</span>
+    </div>
+    <div class="flex flex-col gap-2 items-center justify-center" *ngIf="isCategorySelected">
+      <span class="text-2xl text-center">Completa la información</span>
+      <span class="text-xs text-center" style="color: rgb(176, 176, 176);">Llena la información de tu publicación</span>
+    </div>
+    <div class="flex items-start justify-start self-start" style="border: 2px  yellow;" *ngIf="selectedCategoryHistory.length > 0">
+      <div class="flex" *ngFor="let category of selectedCategoryHistory; let i = index" >
+        <span *ngIf="i==0 && selectedCategoryHistory.length > 1" (click)="navigateToCategory(category, i)" class="pi pi-home hover:cursor-pointer"></span>
+        <span *ngIf="i>0" class="pi pi-angle-right"></span>
+        <span *ngIf="i>0" class="text-xs text-center hover:underline hover:cursor-pointer"
+          [class.hover:cursor-default]="category.id == selectedCategoryHistory[(selectedCategoryHistory.length)-1].id"
+          [class.hover:no-underline]="category.id == selectedCategoryHistory[(selectedCategoryHistory.length)-1].id"
+          style="color: rgb(176, 176, 176);"
+          (click)="navigateToCategory(category, i)">{{category.name}}</span>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-3 w-full justify-center sm:gap-3 md:gap-4" style="border: 1px solid yellow;" *ngIf="!isCategorySelected">
+      <div *ngFor="let category of categories" (click)="selectCategory(category)" [class.selected]="selectedCategory?.id == category.id ? true : false" class="flex flex-col justify-center hover:cursor-pointer hover:outline hover:outline-2 hover:outline-white hover:outline-offset-2 overflow-hidden items-center w-28 h-28 rounded-lg md:w-[9rem] md:h-[9rem]" style="background-color: rgb(39, 39, 42);">
+        <div class="flex flex-col h-2/3 justify-center" style="border: 2px  purple;">
+          <img [src]="category.image" alt="category.name" class="w-12 h-12 md:w-[3.7rem] md:h-[3.7rem]" style="border: 2px  red;">
+        </div>
+        <div class="flex flex-col w-full h-1/3 justify-center p-1 bg-white" style="border: 2px  green;">
+          <span class="text-black text-center text-xs md:text-sm">{{category.name}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-row-reverse items-center justify-between gap-6 w-full" style="border: 2px  green;" *ngIf="selectedCategory && !isCategorySelected">
+      <p-button class="" [style]="{ 'height':'2.25rem', 'border':'2px  red'}" [severity]="severity" size="small" label="Seleccionar" (click)="chooseCategory()" />
+      <a (click)="true" *ngIf="selectedCategory.hasSubcategories" class="text-white hover:text-gray-300 cursor-pointer" style="border: 2px  purple;">Ver Subcategorías</a>
+    </div>
+    <div class="grid grid-cols-1 gap-3 w-full sm:gap-3 md:gap-4" style="border: 1px solid yellow;" *ngIf="isCategorySelected">
+      <div class="flex flex-col" style="border: 2px solid red;">
+        <p-floatLabel class="w-full" variant="in" style="border: 2px  yellow;">
+          <input pInputText pSize="small" id="title" />
+          <label for="title">Título de la publicación</label>
+        </p-floatLabel>
+        <small class="ml-2" id="username-help" style="color: rgb(176, 176, 176);">
+          Ingresa un título descriptivo para tu publicación
+        </small>
+      </div>
+      <div class="flex flex-col" style="border: 2px solid red;">
+        <p-floatlabel variant="in">
+          <textarea pTextarea id="over_label" [(ngModel)]="description" (ngModelChange)="limitLines($event)" maxlength="350" [autoResize]="true" rows="1" style="resize: none" class="h-full w-full"></textarea>
+          <label for="in_label">Descripción</label>
+        </p-floatlabel>
+        <small class="ml-2" id="username-help" style="color: rgb(176, 176, 176);">
+          Ingresa un título descriptivo para tu publicación
+        </small>
+      </div>
+
+      <!-- <div *ngFor="let category of categories" (click)="selectCategory(category)" [class.selected]="selectedCategory?.id == category.id ? true : false" class="flex flex-col justify-center hover:cursor-pointer hover:outline hover:outline-2 hover:outline-white hover:outline-offset-2 overflow-hidden items-center w-28 h-28 rounded-lg md:w-[9rem] md:h-[9rem]" style="background-color: rgb(39, 39, 42);">
+        <div class="flex flex-col h-2/3 justify-center" style="border: 2px  purple;">
+          <img [src]="category.image" alt="category.name" class="w-12 h-12 md:w-[3.7rem] md:h-[3.7rem]" style="border: 2px  red;">
+        </div>
+        <div class="flex flex-col w-full h-1/3 justify-center p-1 bg-white" style="border: 2px  green;">
+          <span class="text-black text-center text-xs md:text-sm">{{category.name}}</span>
+        </div>
+      </div> -->
+    </div>
+    <div class="flex flex-row-reverse items-center justify-between gap-6 w-full" style="border: 2px  green;" *ngIf="isCategorySelected">
+      <p-button class="" [style]="{ 'height':'2.25rem', 'border':'2px  red'}" [severity]="severity" size="small" label="Seleccionar" (click)="chooseCategory()" />
+      <a (click)="true" class="text-white hover:text-gray-300 cursor-pointer" style="border: 2px  purple;">Ver Subcategorías</a>
+    </div>
+  </div>
+</div>
+

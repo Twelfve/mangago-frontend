@@ -1,0 +1,17 @@
+<div class="flex flex-col w-full h-full" style="border: 2px  white;">
+  <app-header></app-header>
+  <div class="flex justify-start flex-wrap p-4 gap-4" style="border: 2px  red;">
+    <div class="flex flex-col-reverse shadow-lg relative hover:cursor-pointer w-[11.96rem] h-72" style="border: 1px  black;" *ngFor="let manga of mangas">
+      <img class="w-full h-full" [src]="manga.image" alt="manga image">
+      <div class="flex w-full items-center justify-center h-10 absolute backdrop-blur-sm "
+        [class.josei]="manga.category == 'JOSEI'" 
+        [class.shounen]="manga.category == 'SHOUNEN'" 
+        [class.seinen]="manga.category == 'SEINEN'" 
+        [class.shoujo]="manga.category == 'SHOUJO'" 
+        style="border: 2px  orangered;">
+        <span class="text-white">{{manga.category}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+

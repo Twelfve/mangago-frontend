@@ -1,0 +1,121 @@
+<div class="flex w-full justify-between items-center gap-3 p-2 md:px-8 lg:px-12 xl:px-24 h-16 sm:h-18 md:h-20" style="border-bottom: 1.5px solid rgb(162, 162, 162); background-color: rgb(91, 91, 255);">
+  <div class="flex w-12 sm:w-14 md:w-16" style="border: 2px  yellow;">
+    <img class=" " src="../../../../assets/images/logo.png">
+  </div>
+  <div class="hidden sm:flex items-center gap-2" style="border: 2px  red;">
+    <ul class="flex gap-2" style="border: 2px  yellow;">
+      <li class="flex items-center gap-1 p-2 hover:cursor-pointer hover:text-red-500" style="border: 2px  red;">
+        <a href="#" style="color: white;">Biblioteca</a>
+      </li>
+      <li class="flex items-center gap-1 p-2 hover:cursor-pointer hover:text-red-500" style="border: 2px  red;">
+        <a href="#" style="color: white;" >Categorias</a>
+        <span class="pi pi-angle-down" style="font-size: 0.95rem; color: #afafaf;"></span>
+      </li>
+      <li class="flex items-center gap-1 p-2 hover:cursor-pointer hover:text-red-500" style="border: 2px  red;">
+        <a *ngIf="(username$ | async)" (click)="navigateToSell()" style="color: white;">Publicar</a>
+        <a *ngIf="!(username$ | async)" (click)="navigateToLogin()" style="color: white;">Publicar</a>
+      </li>
+    </ul>
+  </div>
+  <div class="flex-1" style="border: 2px  purple;">
+    <p-iconField iconPosition="left">
+      <p-inputIcon styleClass="pi pi-search" />
+      <input class="w-full h-10 sm:h-12 md:h-12" type="text" pInputText placeholder="Buscar" />
+    </p-iconField>
+  </div>
+  <div class="hidden sm:flex gap-3 items-center" style="border: 2px  red;">
+    <ul class="flex gap-2" style="border: 2px  yellow;" *ngIf="!(username$ | async)">
+      <li class="flex items-center gap-2 p-2 hover:cursor-pointer hover:text-red-500" style="border: 2px  red;">
+        <span class="pi pi-sign-in" style="color: white;"></span>
+        <a (click)="navigateToLogin()" style="color: white;">Autentícate</a>
+      </li>
+    </ul>
+    <ul class="flex gap-2" style="border: 2px  yellow;" *ngIf="(username$ | async)">
+      <li class="flex items-center gap-2 p-2 hover:cursor-pointer hover:text-red-500" (click)="showPopover = !showPopover" style="border: 2px  red;">
+        <span class="pi pi-user" style="color: white;"></span>
+        <a href="#" style="color: white;">{{(username$ | async)}}</a>
+        <!-- Popover -->
+        <div
+          class="popover absolute mt-40 w-32 p-4 z-10 text-black bg-white border rounded shadow-2xl flex flex-col gap-2 transition-opacity duration-150 ease-in-out transform md:w-40 lg:w-48"
+          [class.opacity-100]="showPopover"
+          [class.opacity-0]="!showPopover"
+          [class.pointer-events-none]="!showPopover"
+          style="border: 2px  #2B2E33;">
+          <a (click)="navigateToMyProfile()">Perfil</a>
+          <a href="#">Favoritos</a>
+          <a (click)="logOut()">Cerrar Sesión</a>
+        </div>
+      </li>
+
+      <!-- <li class="flex items-center gap-2 p-2 hover:cursor-pointer hover:text-red-500" style="border: 2px  red;">
+        <span class="pi pi-shopping-cart"></span>
+      </li> -->
+    </ul>
+  </div>
+  <!-- <div class="w-12 h-12 rounded-full hidden sm:block overflow-hidden" style="border: 2px  yellow;"><img src="../../../../assets/images/pfp.jpg"></div> -->
+  <div class="flex sm:hidden" style="border: 2px  blue;">
+    <span class="pi pi-bars cursor-pointer" (click)="showSideBar = !showSideBar" style="font-size: 1.5rem; color: #DA0037; border: 2px  green;"></span>
+  </div>
+</div>
+
+<div class="flex justify-between items-center p-2 h-7 bg-yellow-200" *ngIf="((isEmailVerified$ | async)==false)" [ngClass]="{'hidden': !showVerifyEmailMessage}" style="border: 2px  blue;">
+  <a class="cursor-pointer hover:text-red-600" (click)="navigateToVerifyEmail()" style="color: #3e3e3e;">Haz click aquí para verificar tu correo eléctronico</a>
+  <span class="pi pi-times cursor-pointer" style="color: black;" (click)="closeVerifyEmailMessage()"></span>
+</div>
+
+<div class="w-screen h-screen absolute top-0 z-20 opacity-40" (click)="showSideBar = !showSideBar" *ngIf="showSideBar" style="background-color: black; border: 2px  purple;"></div>
+
+<!-- Sidebar For Mobiles -->
+<div class="flex flex-col justify-between sidebar opacity-100 z-30" style="border: 2px  red;" [ngClass]="{'sidebar-hidden': !showSideBar}">
+  <div class="flex flex-col">
+    <div class="flex w-full items-center gap-3 p-2 h-16 sm:h-20 md:h-20" style="border: 2px  yellow; background-color: rgb(39, 39, 42);">
+      <span class="pi pi-bars pl-2 left-0 cursor-pointer absolute" (click)="showSideBar = !showSideBar" style="font-size: 1.5rem; color: #DA0037; border: 2px  green;"></span>
+      <div class="flex w-full justify-center" style="border: 2px  purple;">
+        <span class="" style="border: 2px  red;">Autopartame</span>
+      </div>
+    </div>
+    <div style="border: 2px  red;">
+      <ul class="flex flex-col gap-2" style="border: 2px  purple;">
+        <li class="flex w-full h-9 content-center justify-center" style="border: 2px  red; background-color: #DA0037;">
+          <a *ngIf="!(username$ | async)" (click)="navigateToLogin()" class="text-white self-center hover:text-gray-300 cursor-pointer">Inicia Sesión o Registrate</a>
+          <span *ngIf="(username$ | async)" class="text-white self-center">Hola {{(username$ | async)}}</span>
+        </li>
+        <li class="flex mx-2 items-center gap-2 p-2" style="border: 2px  yellow;">
+          <span class="pi pi-home"></span>
+          <a href="#" class="text-white hover:text-red-500">Inicio</a>
+        </li>
+        <li class="flex mx-2 items-center gap-2 p-2" style="border: 2px  yellow;">
+          <span class="pi pi-angle-right"></span>
+          <a href="#" class="text-white hover:text-red-500">Categorias</a>
+        </li>
+        <li *ngIf="(username$ | async)" class="flex mx-2 items-center gap-2 p-2" style="border: 2px  yellow;">
+          <span class="pi pi-user"></span>
+          <a (click)="navigateToMyProfile()" class="text-white hover:text-red-500">Perfil</a>
+        </li>
+        <li class="flex mx-2 items-center gap-2 p-2" style="border: 2px  yellow;">
+          <span class="pi pi-user"></span>
+          <a href="#" class="text-white hover:text-red-500">Cotiza</a>
+        </li>
+        <li class="flex mx-2 items-center gap-2 p-2" style="border: 2px  yellow;">
+          <span class="pi pi-user"></span>
+          <a href="#" class="text-white hover:text-red-500">Vender</a>
+        </li>
+        <li *ngIf="(username$ | async)" class="flex mx-2 items-center gap-2 p-2" style="border: 2px  yellow;">
+          <span class="pi pi-receipt"></span>
+          <a href="#" class="text-white hover:text-red-500">Compras</a>
+        </li>
+        <li *ngIf="(username$ | async)" class="flex mx-2 items-center gap-2 p-2" style="border: 2px  yellow;">
+          <span class="pi pi-shopping-cart"></span>
+          <a href="#" class="text-white hover:text-red-500">Carrito</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="(username$ | async)">
+    <ul class="flex flex-col gap-2" style="border: 2px  yellow;">
+      <li class="flex w-full h-9 content-center justify-center" style="border: 2px  purple; background-color: #DA0037;">
+        <a (click)="logOut()" style="border: 2px  green;" class="text-white self-center hover:text-gray-300 cursor-pointer">Cerrar Sesión</a>
+      </li>
+    </ul>
+  </div>
+</div>

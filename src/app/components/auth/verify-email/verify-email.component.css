@@ -1,0 +1,20 @@
+:host ::ng-deep input:focus, input:focus-visible {
+  outline: none!important;
+}
+
+:host ::ng-deep .p-inputtext {
+  /* border: 2px solid yellow; */
+  background-color: #171717;
+  color: rgb(176, 176, 176);
+  height: 3.4rem;
+  border: none;
+  width: 2.8rem;
+}
+
+
+
+:host ::ng-deep .p-inputtext:focus, .p-inputtext:focus-visible {
+  outline: none!important;
+  border: 0!important;
+  box-shadow: none!important;
+}

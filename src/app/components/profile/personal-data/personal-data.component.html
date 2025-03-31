@@ -1,0 +1,63 @@
+<div class="flex flex-col w-full h-full" style="border: 2px  white;">
+  <app-header></app-header>
+  <div class="flex gap-2 justify-center p-3 items-center overflow-scroll" style="border: 2px  red; ">
+    <div class="flex flex-col p-2 w-full gap-3 shadow-2xl rounded-md md:w-4/5 lg:w-2/3 xl:w-7/12 2xl:w-1/2" style="border: 2px  green; background-color: #2B2E33;">
+      <div class="flex flex-col h-full gap-2 justify-evenly sm:flex-row sm:flex-wrap sm:justify-between" *ngIf="payload" style="border: 2px  red;">
+        <div class="flex flex-col" style="border: 2px  red;">
+          <p-floatLabel variant="in" style="border: 2px  yellow;">
+            <input pInputText pSize="small" id="username" [disabled]="!isEditing" [(ngModel)]="payload.username" />
+            <label for="username">Nombre de usuario</label>
+          </p-floatLabel>
+        </div>
+        <div class="flex flex-col">
+          <p-floatLabel variant="in" style="border: 2px  yellow;">
+            <input pInputText pSize="small" id="firstName" [disabled]="!isEditing" [(ngModel)]="payload.firstName" />
+            <label for="firstName">Nombre(s)</label>
+          </p-floatLabel>
+        </div>
+        <div class="flex flex-col">
+          <p-floatLabel variant="in" style="border: 2px  yellow;">
+            <input pInputText pSize="small" id="lastName" [disabled]="!isEditing" [(ngModel)]="payload.lastName" />
+            <label for="lastName">Apellidos</label>
+          </p-floatLabel>
+        </div>
+        <div class="flex flex-col flex-auto" style="border: 2px  yellow;">
+          <p-floatLabel variant="in" style="border: 2px  yellow;">
+            <input pInputText pSize="small" id="email" [disabled]="true" [(ngModel)]="payload.email" />
+            <label for="email">Correo Eléctronico</label>
+          </p-floatLabel>
+        </div>
+        <div class="flex flex-col flex-auto" style="border: 2px  yellow;">
+          <p-floatLabel variant="in" style="border: 2px  yellow;">
+            <input pInputText pSize="small" id="phoneNumber" [disabled]="true" [(ngModel)]="payload.phoneNumber" />
+            <label for="phoneNumber">Número celular</label>
+          </p-floatLabel>
+        </div>
+      </div>
+      <div class="flex flex-row-reverse justify-between items-end gap-1" style="border: 2px  red;">
+        <button
+          class="w-24 h-9 bg-white text-black"
+          type="submit"
+          style="border-radius: 4px;"
+          (click)="isEditing = true"
+          *ngIf="!isEditing"
+        >
+          Editar
+        </button>
+        <button
+          class="w-24 h-9 bg-white text-black"
+          type="submit"
+          style="border-radius: 4px;"
+          *ngIf="isEditing"
+          (click)="saveChanges()"
+        >
+          Guardar
+        </button>
+        <button class="w-24 h-9 signup-button text-white text-xs" style="border-radius: 4px;" (click)="isEditing = false" *ngIf="isEditing">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast position="top-center" [breakpoints]="{'390px': { width: '75%'}}"/>

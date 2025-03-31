@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import "primeicons/primeicons.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities; */
+@import "../node_modules/tailwindcss/base.css" layer(tailwindcss);
+@import "../node_modules/tailwindcss/components.css" layer(tailwindcss);
+@import "../node_modules/tailwindcss/utilities.css" layer(tailwindcss);
+@import "../node_modules/primeicons/primeicons.css";
